@@ -9,6 +9,25 @@ app = Flask(__name__)
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blog.db")
 
 
+def init_db():
+    """posts 테이블이 없으면 생성 (Render 배포 시 자동 실행)"""
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+
+# 앱 시작 시 테이블 자동 생성
+init_db()
+
+
 def get_db():
     """데이터베이스 연결을 생성하고 행을 딕셔너리처럼 접근할 수 있게 설정"""
     conn = sqlite3.connect(DB_PATH)
@@ -79,4 +98,6 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Render는 PORT 환경변수로 포트를 알려주고, 로컬은 5000번 사용
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)

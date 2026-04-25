@@ -50,5 +50,33 @@ def write_post():
     return render_template("write.html")
 
 
+@app.route("/edit/<int:post_id>", methods=["GET", "POST"])
+def edit_post(post_id):
+    """글 수정 페이지: GET은 기존 글을 폼에 채워서 보여주기, POST는 DB 업데이트"""
+    conn = get_db()
+    post = conn.execute("SELECT * FROM posts WHERE id = ?", (post_id,)).fetchone()
+    if post is None:
+        conn.close()
+        return "글을 찾을 수 없습니다.", 404
+    if request.method == "POST":
+        conn.execute("UPDATE posts SET title = ?, content = ? WHERE id = ?",
+                     (request.form["title"], request.form["content"], post_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for("post_detail", post_id=post_id))
+    conn.close()
+    return render_template("edit.html", post=post)
+
+
+@app.route("/delete/<int:post_id>", methods=["POST"])
+def delete_post(post_id):
+    """글 삭제: POST로 들어오면 DB에서 해당 글을 삭제하고 목록으로 이동"""
+    conn = get_db()
+    conn.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for("post_list"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -6,12 +6,22 @@
 {% block content %}
 <main class="max-w-[1120px] mx-auto px-8 py-20">
     <div class="max-w-[720px] mx-auto">
-        <!-- 상단 액션: 목록으로 돌아가기 버튼 -->
+        <!-- 상단 액션: 목록으로 돌아가기 + 수정/삭제 버튼 -->
         <div class="flex justify-between items-center mb-12">
             <a href="/" class="inline-flex items-center gap-2 group transition-all text-secondary hover:text-primary">
                 <span class="material-symbols-outlined text-sm">arrow_back</span>
                 <span class="font-label-caps text-label-caps uppercase">Back to List</span>
             </a>
+            <div class="flex gap-4">
+                <a href="/edit/{{ post.id }}" class="border border-secondary px-6 py-2 transition-all hover:bg-secondary-container active:scale-95">
+                    <span class="font-label-caps text-label-caps text-primary uppercase">Edit</span>
+                </a>
+                <form action="/delete/{{ post.id }}" method="POST" onsubmit="return confirm('정말 삭제할까요?')">
+                    <button type="submit" class="bg-primary text-white px-6 py-2 transition-all hover:opacity-90 active:scale-95">
+                        <span class="font-label-caps text-label-caps uppercase">Delete</span>
+                    </button>
+                </form>
+            </div>
         </div>
 
         <!-- 글 본문 영역 -->

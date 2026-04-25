@@ -1,0 +1,47 @@
+<!-- 글쓰기 페이지: 제목과 내용을 입력해서 새 글을 등록하는 폼 -->
+{% extends "base.html" %}
+
+{% block title %}Write - Mindful Reading{% endblock %}
+
+{% block content %}
+<main class="max-w-[1120px] mx-auto px-8 pt-16">
+    <div class="max-w-[720px] mx-auto">
+        <!-- 상단 안내: 현재 '작성 중' 상태 표시 -->
+        <div class="flex justify-between items-center mb-12 border-b border-secondary pb-4">
+            <div class="flex items-center gap-4">
+                <span class="font-label-caps text-label-caps text-secondary uppercase">Drafting</span>
+                <span class="w-1 h-1 rounded-full bg-secondary"></span>
+                <span class="font-label-caps text-label-caps text-outline uppercase tracking-widest">New essay</span>
+            </div>
+        </div>
+
+        <!-- 글쓰기 폼: 제목(title)과 내용(content)을 서버에 POST로 전송 -->
+        <form action="/write" method="POST" class="space-y-8">
+            <!-- 제목 입력 -->
+            <div>
+                <input
+                    class="w-full bg-transparent border-none p-0 font-headline-xl text-headline-xl placeholder-outline-variant focus:ring-0"
+                    type="text" name="title" placeholder="Title of your essay..." required
+                />
+            </div>
+
+            <!-- 내용 입력 -->
+            <div class="pt-4">
+                <textarea
+                    class="w-full min-h-[500px] bg-transparent border-none p-0 font-body-lg text-body-lg text-on-surface placeholder-outline-variant focus:ring-0 leading-relaxed resize-none"
+                    name="content" placeholder="Begin your story here..." required
+                ></textarea>
+            </div>
+
+            <!-- 하단 고정 액션 바: Publish 버튼 -->
+            <div class="sticky bottom-12 flex justify-center pt-8">
+                <div class="bg-surface-container-highest/90 backdrop-blur-md px-6 py-4 rounded-full flex items-center gap-8 shadow-sm border border-stone-200">
+                    <button type="submit" class="bg-primary text-white px-8 py-2.5 rounded-full font-label-caps text-label-caps uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-95 shadow-lg">
+                        Publish
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

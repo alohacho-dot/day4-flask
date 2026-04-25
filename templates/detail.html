@@ -1,0 +1,48 @@
+<!-- 글 상세 페이지: 하나의 글을 전체 화면으로 읽을 수 있는 뷰 -->
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - Mindful Reading{% endblock %}
+
+{% block content %}
+<main class="max-w-[1120px] mx-auto px-8 py-20">
+    <div class="max-w-[720px] mx-auto">
+        <!-- 상단 액션: 목록으로 돌아가기 버튼 -->
+        <div class="flex justify-between items-center mb-12">
+            <a href="/" class="inline-flex items-center gap-2 group transition-all text-secondary hover:text-primary">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                <span class="font-label-caps text-label-caps uppercase">Back to List</span>
+            </a>
+        </div>
+
+        <!-- 글 본문 영역 -->
+        <article>
+            <header class="mb-12">
+                <div class="bg-surface-container inline-block px-3 py-1 mb-6 rounded-full">
+                    <span class="font-label-caps text-label-caps text-secondary uppercase">Essay</span>
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-primary mb-6">{{ post.title }}</h1>
+                <div class="flex items-center gap-4 text-outline">
+                    <p class="text-xs uppercase tracking-widest">{{ post.created_at[:10] }}</p>
+                </div>
+            </header>
+
+            <!-- 글 내용: 줄바꿈을 <br> 태그로 변환해서 출력 -->
+            <div class="space-y-8">
+                {% for paragraph in post.content.split('\n') %}
+                {% if paragraph.strip() %}
+                <p class="font-body-lg text-body-lg text-on-surface leading-relaxed">{{ paragraph }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </article>
+
+        <!-- 하단 구분선 -->
+        <footer class="mt-20 pt-12 border-t border-secondary-container">
+            <a href="/" class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-sm">arrow_back</span>
+                <span class="font-label-caps text-label-caps uppercase">Back to List</span>
+            </a>
+        </footer>
+    </div>
+</main>
+{% endblock %}

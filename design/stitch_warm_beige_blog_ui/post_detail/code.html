@@ -1,0 +1,227 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#181512",
+                    "surface-bright": "#fbf9f4",
+                    "secondary-container": "#eddec6",
+                    "inverse-surface": "#30312e",
+                    "on-background": "#1b1c19",
+                    "on-primary-fixed": "#1e1b18",
+                    "surface-container-low": "#f5f3ee",
+                    "on-tertiary-fixed-variant": "#4b463c",
+                    "on-primary-container": "#96908b",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#fbf9f4",
+                    "on-error": "#ffffff",
+                    "outline": "#7e756f",
+                    "primary-fixed-dim": "#cdc5c0",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e9e1dc",
+                    "surface-container-high": "#eae8e3",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#4b4642",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e4e2dd",
+                    "surface-variant": "#e4e2dd",
+                    "secondary-fixed-dim": "#d3c5ae",
+                    "on-secondary-fixed-variant": "#4f4534",
+                    "surface-tint": "#635d5a",
+                    "primary-container": "#2d2926",
+                    "surface": "#fbf9f4",
+                    "on-secondary-fixed": "#221a0c",
+                    "inverse-on-surface": "#f2f1ec",
+                    "on-secondary-container": "#6c614e",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#cdc5c0",
+                    "tertiary-container": "#2d2920",
+                    "secondary": "#685d4a",
+                    "outline-variant": "#cfc4bd",
+                    "tertiary": "#18150d",
+                    "tertiary-fixed": "#eae2d4",
+                    "on-surface-variant": "#4d4540",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1c19",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dbdad5",
+                    "on-tertiary-container": "#969084",
+                    "secondary-fixed": "#f0e0c9",
+                    "on-tertiary-fixed": "#1e1b13",
+                    "surface-container": "#f0eee9",
+                    "tertiary-fixed-dim": "#cdc6b8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "gutter": "24px",
+                    "article-max": "720px",
+                    "container-max": "1120px",
+                    "element-gap": "16px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Newsreader"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Newsreader"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Newsreader"],
+                    "label-caps": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f4; /* Enforcing warm beige as requested */
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<nav class="bg-stone-50 dark:bg-zinc-950 border-b border-stone-200 dark:border-zinc-800 w-full top-0 z-50">
+<div class="max-w-[1120px] mx-auto flex justify-between items-center px-8 py-6">
+<a class="text-2xl font-serif italic text-zinc-900 dark:text-zinc-50" href="#">Mindful Reading</a>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-zinc-900 dark:text-zinc-100 font-bold border-b-2 border-zinc-900 dark:border-zinc-100 pb-1 font-serif tracking-tight scale-100 active:scale-95 transition-all" href="#">Essays</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.15em] text-[11px] font-bold hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors duration-200" href="#">Library</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.15em] text-[11px] font-bold hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors duration-200" href="#">About</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.15em] text-[11px] font-bold hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors duration-200" href="#">Write</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-zinc-900 dark:text-zinc-50 transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-[1120px] mx-auto px-margin-mobile md:px-8 py-section-gap">
+<!-- Action Buttons (Header Level) -->
+<div class="max-w-[720px] mx-auto flex justify-between items-center mb-12">
+<a class="inline-flex items-center gap-2 group transition-all text-secondary hover:text-primary" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span class="font-label-caps text-label-caps uppercase">Back to List</span>
+</a>
+<div class="flex gap-4">
+<button class="border border-secondary px-6 py-2 transition-all hover:bg-secondary-container active:scale-95">
+<span class="font-label-caps text-label-caps text-primary uppercase">Edit</span>
+</button>
+<button class="bg-primary text-white px-6 py-2 transition-all hover:opacity-90 active:scale-95">
+<span class="font-label-caps text-label-caps uppercase">Delete</span>
+</button>
+</div>
+</div>
+<!-- Article Content -->
+<article class="max-w-[720px] mx-auto">
+<header class="mb-12">
+<div class="bg-surface-container inline-block px-3 py-1 mb-6 rounded-full">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Philosophical Inquiry</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-6">The Art of Slow Information: Reclaiming Our Cognitive Sovereignty</h1>
+<div class="flex items-center gap-4 text-outline mb-10">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-container">
+<img alt="Author profile" class="w-full h-full object-cover" data-alt="portrait of a focused writer in a sunlit studio, warm tones and soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzWy9Bkmh2-x_Yqp9uXtJtgHw9BMIpD2L8TqAslsV-b2za7TKd4YuHpEitkWOJHT-7SCc4sS9C-r18EH2tkcF0m5lyInZ9gTGnpXUPSsxsuBU9xBcgmOthL8LvxcqLY4BQ-LEUqMAlrT_q71rX-spuSVO8WLRRcyiuKhayNpzsBDA7ASFdY-B9EPwiHvn2FCfDuOwg06NUuFboPe-nobKvCUcfsYrj8ngCiappreD6WbzHwG_k4dvhtkMeWCg316FCqqByR_EIrRM"/>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary">By Elias Thorne</p>
+<p class="text-xs uppercase tracking-widest mt-1">October 24, 2024 • 12 Min Read</p>
+</div>
+</div>
+<div class="w-full h-[480px] rounded-xl overflow-hidden mb-12">
+<img alt="Editorial cover" class="w-full h-full object-cover" data-alt="stack of vintage linen-bound books resting on a rustic wooden desk next to a ceramic cup of tea in soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKicw0r1dxbYMhz9NFEKvMavsEpzc3a_719_L-MFI8XYY37L0OmcnxxIaMXfL4EGkDbFEv7xiMKkjDd6TqNwPm3hjWafi6UyI6MEra8W5c1-HyuCtXWrYheozp14MGXR8hm-WPLQY9CInexr79Clg9ztnOrc9JWOmvGM0lVmwYzMpDuvBKOxWg4gn15Zue0G73mqKZLxVD_7os8thLCZsAr9iUkSAI7Am06yu-k7N7_YNsXKucLtkjZZCrFkQz866TlJDXNS9carw"/>
+</div>
+</header>
+<div class="space-y-8">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                    In an era defined by the frantic velocity of the digital scroll, we have traded the depth of the ocean for the breadth of a puddle. We consume information like fast food—convenient, hyper-processed, and ultimately unsatisfying. The practice of mindful reading is not merely a hobby; it is an act of intellectual resistance.
+                </p>
+<h2 class="font-headline-md text-headline-md text-primary pt-6">The Architecture of Attention</h2>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                    Our brains are being rewired for the skip and the scan. We look for keywords, we hunt for the "takeaway," and in doing so, we lose the nuance of the journey. To read a long-form essay with focused intent is to allow another's consciousness to temporarily inhabit our own. This requires a specific kind of environment—one that is tactile, quiet, and free from the persistent ping of notifications.
+                </p>
+<blockquote class="border-l-4 border-secondary-container pl-8 my-12 italic text-primary">
+<p class="font-headline-lg text-headline-lg leading-snug">"The book you finish reading is not the same book you started; you are not the same person who began it."</p>
+</blockquote>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                    Consider the physical sensation of paper, or the intentionality of a digital interface that prioritizes typography over advertisements. When we slow down, we begin to notice the rhythm of a sentence, the subtle architecture of an argument, and the emotional resonance of a well-chosen metaphor.
+                </p>
+<div class="grid grid-cols-2 gap-8 my-12">
+<img alt="Text texture" class="w-full h-64 object-cover rounded-lg" data-alt="close up of old paper texture with elegant serif typography and ink stains, moody library aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChAJSVN6Xoa3vE9ILuERBP9V1OQgpb9XIj9CiwfsPL0EL7_RS0v84FCuirlwuWBcVTjvaitQCDYcdS6ng3zaLMzMzu2-OgcREZtXBYoC5XKJhrTuHt4boD7iSywY_ycL3_yIZSOW5bbYz4YZ1Q3QBm0JGljq03aGAZYzD3CgHTFjxYdTEbaCNcY8E35RYVtPBUCoXM7eVAwUTx9Csyi6cQ3Hb0ZzrEpbCge_7nuJA9sFyKNsZXwVG5YfJef7svWyU8bdSygKyl0pI"/>
+<img alt="Quiet landscape" class="w-full h-64 object-cover rounded-lg" data-alt="misty window overlooking a quiet forest at dawn, minimal and peaceful mood" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoy46sYlUslU6OdZIG6CiqVqT4-0azI38jnlMi9YAlCjsu5cYFQH5i0aUZ-q8IrumTebLRCHzDmFzXMkZ6HlWehKZVmsDdmn_XvYEFg-PKmxY4LVN61KlYvNdOaQiS8bb8gd_ySxEsms0Qw8gr33ntW6-id03HU4E3tF0eb9ztQraZp46WZ5WAhxCLoGs0Vecp5itfoNRMR3YtB3lA7qtrpDqOiu4qzHwKJNoeaEr3ti1Rpr3WmEZz3YQucDiLiAGR_mUEKa9ENXc"/>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                    As we navigate this landscape of hyper-connectivity, the choice to disengage becomes our most powerful tool. Reclaim your morning. Find a corner with good light. Let the world wait while you inhabit a different one. This is the art of slow information.
+                </p>
+</div>
+<footer class="mt-20 pt-12 border-t border-secondary-container">
+<div class="flex flex-wrap gap-3 mb-10">
+<span class="font-label-caps text-[10px] px-3 py-1 border border-outline-variant text-outline uppercase">Philosophy</span>
+<span class="font-label-caps text-[10px] px-3 py-1 border border-outline-variant text-outline uppercase">Mindfulness</span>
+<span class="font-label-caps text-[10px] px-3 py-1 border border-outline-variant text-outline uppercase">Cognitive Science</span>
+</div>
+<!-- Bottom Action Cluster -->
+<div class="flex flex-col md:flex-row gap-6 items-center justify-between">
+<div class="flex gap-4">
+<button class="flex items-center gap-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill">favorite</span>
+<span class="font-label-caps text-label-caps">1.2k</span>
+</button>
+<button class="flex items-center gap-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span class="font-label-caps text-label-caps">Share</span>
+</button>
+</div>
+<div class="flex gap-4">
+<button class="border border-secondary px-8 py-3 transition-all hover:bg-secondary-container active:scale-95">
+<span class="font-label-caps text-label-caps text-primary uppercase">Edit Story</span>
+</button>
+<button class="bg-primary text-white px-8 py-3 transition-all hover:opacity-90 active:scale-95">
+<span class="font-label-caps text-label-caps uppercase">Delete Permanent</span>
+</button>
+</div>
+</div>
+</footer>
+</article>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-50 dark:bg-zinc-950 border-t border-stone-200 dark:border-zinc-800 mt-20">
+<div class="max-w-[1120px] mx-auto flex flex-col md:flex-row justify-between items-center py-16 px-8 gap-8">
+<div class="flex flex-col gap-4 items-center md:items-start">
+<span class="text-xl font-serif italic text-zinc-900 dark:text-zinc-50">Mindful Reading</span>
+<p class="font-serif text-sm text-zinc-600 dark:text-zinc-400">© 2024 Mindful Reading. Crafted for the slow reader.</p>
+</div>
+<div class="flex gap-10">
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-widest text-[10px] hover:text-zinc-900 dark:hover:text-zinc-50 transition-all" href="#">Newsletter</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-widest text-[10px] hover:text-zinc-900 dark:hover:text-zinc-50 transition-all" href="#">Archive</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-widest text-[10px] hover:text-zinc-900 dark:hover:text-zinc-50 transition-all" href="#">Privacy</a>
+<a class="text-zinc-500 dark:text-zinc-400 uppercase tracking-widest text-[10px] hover:text-zinc-900 dark:hover:text-zinc-50 transition-all" href="#">Terms</a>
+</div>
+</div>
+</footer>
+</body></html>

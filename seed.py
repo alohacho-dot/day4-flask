@@ -28,7 +28,7 @@ def init_db(conn: sqlite3.Connection) -> None:
     conn.commit()
 
 
-def seed_posts(limit: int = 10) -> int:
+def seed_posts(limit: int = 10):
     xml_text = fetch_rss(GOOGLE_NEWS_KO_RSS)
     items = parse_rss_items(xml_text, limit=limit)
 
@@ -41,7 +41,10 @@ def seed_posts(limit: int = 10) -> int:
     try:
         init_db(conn)
 
+        before_count = conn.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+
         inserted_count = 0
+        skipped_count = 0
         for item in items:
             title = item["title"].strip()
             summary = item["summary"].strip()
@@ -54,6 +57,7 @@ def seed_posts(limit: int = 10) -> int:
             ).fetchone()
 
             if exists:
+                skipped_count += 1
                 continue
 
             content = (
@@ -69,7 +73,16 @@ def seed_posts(limit: int = 10) -> int:
             inserted_count += 1
 
         conn.commit()
-        return inserted_count
+
+        after_count = conn.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+        return {
+            "db_path": db_path,
+            "fetched": len(items),
+            "inserted": inserted_count,
+            "skipped": skipped_count,
+            "before": before_count,
+            "after": after_count,
+        }
     finally:
         conn.close()
 
@@ -79,8 +92,11 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
 
     try:
-        inserted = seed_posts(limit=10)
-        print(f"{inserted}건 추가됨")
+        result = seed_posts(limit=10)
+        print(f"[seed] DB_PATH={result['db_path']}")
+        print(f"[seed] fetched={result['fetched']}, inserted={result['inserted']}, skipped={result['skipped']}")
+        print(f"[seed] total_posts: {result['before']} -> {result['after']}")
+        print(f"{result['inserted']}건 추가됨")
     except requests.RequestException as e:
         print(f"RSS 요청 실패: {e}")
 

@@ -9,8 +9,6 @@ def get_db_path():
     env_db_path = os.environ.get("DB_PATH")
     if env_db_path:
         return env_db_path
-    if os.environ.get("RENDER"):
-        return "/var/data/blog.db"
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), DB_NAME)
 
 

@@ -6,12 +6,20 @@ DB_NAME = "blog.db"
 
 
 def get_db_path():
-    # 이 스크립트가 있는 폴더에 blog.db 파일을 생성
+    env_db_path = os.environ.get("DB_PATH")
+    if env_db_path:
+        return env_db_path
+    if os.environ.get("RENDER"):
+        return "/var/data/blog.db"
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), DB_NAME)
 
 
 def init_db():
-    conn = sqlite3.connect(get_db_path())
+    db_path = get_db_path()
+    db_dir = os.path.dirname(db_path)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
+    conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
     # posts 테이블 생성 (이미 있으면 건너뜀)

@@ -5,8 +5,20 @@ import os
 
 app = Flask(__name__)
 
-# 데이터베이스 파일 경로 (이 스크립트와 같은 폴더에 위치)
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blog.db")
+
+def get_db_path():
+    env_db_path = os.environ.get("DB_PATH")
+    if env_db_path:
+        return env_db_path
+    if os.environ.get("RENDER"):
+        return "/var/data/blog.db"
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), "blog.db")
+
+
+DB_PATH = get_db_path()
+db_dir = os.path.dirname(DB_PATH)
+if db_dir:
+    os.makedirs(db_dir, exist_ok=True)
 
 
 def init_db():
@@ -37,11 +49,65 @@ def get_db():
 
 @app.route("/")
 def post_list():
-    """글 목록 페이지: 모든 글을 최신순으로 가져와서 list.html에 전달"""
+    """글 목록 페이지: 검색 + 정렬 + 10개 단위 페이지네이션 목록 전달"""
+    page = request.args.get("page", 1, type=int)
+    if page < 1:
+        page = 1
+
+    q = request.args.get("q", "", type=str).strip()
+    sort = request.args.get("sort", "latest", type=str)
+
+    sort_map = {
+        "latest": "created_at DESC, id DESC",
+        "oldest": "created_at ASC, id ASC",
+        "title": "title ASC",
+    }
+    if sort not in sort_map:
+        sort = "latest"
+
+    order_by = sort_map[sort]
+    per_page = 10
+    offset = (page - 1) * per_page
+
     conn = get_db()
-    posts = conn.execute("SELECT * FROM posts ORDER BY created_at DESC").fetchall()
+
+    if q:
+        like_q = f"%{q}%"
+        total_count = conn.execute(
+            "SELECT COUNT(*) FROM posts WHERE title LIKE ? OR content LIKE ?",
+            (like_q, like_q)
+        ).fetchone()[0]
+    else:
+        total_count = conn.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+
+    total_pages = max((total_count + per_page - 1) // per_page, 1)
+
+    if page > total_pages:
+        page = total_pages
+        offset = (page - 1) * per_page
+
+    if q:
+        like_q = f"%{q}%"
+        posts = conn.execute(
+            f"SELECT * FROM posts WHERE title LIKE ? OR content LIKE ? ORDER BY {order_by} LIMIT ? OFFSET ?",
+            (like_q, like_q, per_page, offset)
+        ).fetchall()
+    else:
+        posts = conn.execute(
+            f"SELECT * FROM posts ORDER BY {order_by} LIMIT ? OFFSET ?",
+            (per_page, offset)
+        ).fetchall()
+
     conn.close()
-    return render_template("list.html", posts=posts)
+
+    return render_template(
+        "list.html",
+        posts=posts,
+        current_page=page,
+        total_pages=total_pages,
+        q=q,
+        sort=sort
+    )
 
 
 @app.route("/post/<int:post_id>")

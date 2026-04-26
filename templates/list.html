@@ -14,6 +14,30 @@
         </div>
     </section>
 
+    <section class="max-w-[720px] mb-8">
+        <form id="list-filter-form" method="get" action="{{ url_for('post_list') }}" class="flex items-center gap-3">
+            <input
+                type="text"
+                name="q"
+                value="{{ q }}"
+                placeholder="검색어 입력"
+                class="flex-1 border border-outline-variant px-4 py-2 font-body-md text-body-md text-primary focus:outline-none focus:border-secondary"
+            >
+            <button type="submit" class="px-5 py-2 border border-primary bg-primary text-white font-label-caps text-label-caps hover:bg-zinc-800 transition-colors">
+                검색
+            </button>
+            <select
+                name="sort"
+                onchange="document.getElementById('list-filter-form').submit()"
+                class="border border-outline-variant px-3 py-2 font-body-md text-body-md text-primary bg-white focus:outline-none focus:border-secondary"
+            >
+                <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+                <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>오래된순</option>
+                <option value="title" {% if sort == 'title' %}selected{% endif %}>제목순 (가나다)</option>
+            </select>
+        </form>
+    </section>
+
     <!-- 글 목록: posts가 있으면 반복해서 카드 출력 -->
     <section class="max-w-[720px] space-y-0">
         {% for post in posts %}
@@ -23,15 +47,36 @@
             <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">{{ post.content[:120] }}{% if post.content|length > 120 %}...{% endif %}</p>
         </a>
         {% else %}
-        <!-- 글이 하나도 없을 때 보여주는 안내 -->
-        <div class="text-center py-20">
-            <span class="material-symbols-outlined text-outline text-6xl mb-4 block">edit_note</span>
-            <p class="font-body-lg text-on-surface-variant mb-6">아직 글이 없습니다.</p>
-            <a href="/write" class="inline-block bg-primary text-white px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-95">
-                첫 글 쓰기
-            </a>
-        </div>
+            {% if q %}
+            <div class="text-center py-20">
+                <p class="font-body-lg text-on-surface-variant">검색 결과가 없습니다.</p>
+            </div>
+            {% else %}
+            <div class="text-center py-20">
+                <span class="material-symbols-outlined text-outline text-6xl mb-4 block">edit_note</span>
+                <p class="font-body-lg text-on-surface-variant mb-6">아직 글이 없습니다.</p>
+                <a href="/write" class="inline-block bg-primary text-white px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-95">
+                    첫 글 쓰기
+                </a>
+            </div>
+            {% endif %}
         {% endfor %}
     </section>
+
+    <nav class="max-w-[720px] mt-10 flex items-center justify-center gap-4" aria-label="Pagination">
+        {% if current_page > 1 %}
+        <a href="{{ url_for('post_list', page=current_page - 1, q=q, sort=sort) }}" class="px-4 py-2 border border-outline-variant text-primary hover:bg-zinc-100 transition-colors">이전</a>
+        {% else %}
+        <span class="px-4 py-2 border border-outline-variant text-outline cursor-not-allowed opacity-50">이전</span>
+        {% endif %}
+
+        <span class="min-w-16 text-center font-label-caps text-label-caps text-on-surface-variant">{{ current_page }}/{{ total_pages }}</span>
+
+        {% if current_page < total_pages %}
+        <a href="{{ url_for('post_list', page=current_page + 1, q=q, sort=sort) }}" class="px-4 py-2 border border-outline-variant text-primary hover:bg-zinc-100 transition-colors">다음</a>
+        {% else %}
+        <span class="px-4 py-2 border border-outline-variant text-outline cursor-not-allowed opacity-50">다음</span>
+        {% endif %}
+    </nav>
 </main>
 {% endblock %}

@@ -56,8 +56,8 @@ def post_list():
     sort = request.args.get("sort", "latest", type=str)
 
     sort_map = {
-        "latest": "created_at DESC, id DESC",
-        "oldest": "created_at ASC, id ASC",
+        "latest": "id DESC",
+        "oldest": "id ASC",
         "title": "title ASC",
     }
     if sort not in sort_map:

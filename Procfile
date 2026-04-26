@@ -1,2 +1,2 @@
-# Render에서 실행할 명령어 (gunicorn 웹서버로 app.py의 app 객체 실행)
-web: gunicorn app:app
+# Render에서 실행할 명령어 (배포 시 seed 실행 후 gunicorn 웹서버 시작)
+web: python seed.py && gunicorn app:app
